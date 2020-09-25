@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from './order/order.component';
 import { OrderRoutingModule } from './order.routing.module';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -9,7 +11,9 @@ import { OrderRoutingModule } from './order.routing.module';
   declarations: [OrderComponent],
   imports: [
     CommonModule,
-    OrderRoutingModule
+    OrderRoutingModule,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class OrderModule { }

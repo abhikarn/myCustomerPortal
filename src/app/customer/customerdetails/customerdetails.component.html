@@ -80,3 +80,35 @@ Customer Orders :
             {{customerDetails.customer.fax}}
         </div>
     </div>
+  
+    <ng-container >
+        <div class="row" *ngFor="let customerOrder of customerDetails.customerOrders">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        Customer ID
+                    </div>
+                    <div class="col">
+                        {{customerOrder.order.id}}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+               <table>
+                   <th> Order ID</th>
+                   <th> Product ID</th>
+                   <th> Unit Price</th>
+                   <th> Quantity</th>
+                   <th> Discount</th>
+                   <tr *ngFor="let order of customerOrder.orderDetails">
+                       <td>{{order.orderId}}</td>
+                       <td>{{order.productId}}</td>
+                       <td>{{order.unitPrice}}</td>
+                       <td>{{order.quantity}}</td>
+                       <td>{{order.discount}}</td>
+                   </tr>
+               </table>
+            </div>
+        </div>
+    </ng-container>
+</div>

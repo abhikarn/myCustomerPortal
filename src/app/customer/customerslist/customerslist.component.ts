@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { of } from 'rxjs';
+import { debounceTime, filter, switchMap } from 'rxjs/operators';
 import { BackendApiService } from 'src/app/core/backend-api.service';
-import { CustomerModel } from '../customer.model';
+import { CustomerModel } from '../../customer.model';
 import { CustomerModule } from '../customer.module';
 
 @Component({
@@ -12,7 +14,7 @@ import { CustomerModule } from '../customer.module';
 })
 export class CustomerslistComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<CustomerModel>;
   constructor(private backenApi: BackendApiService) { }
   displayedColumns: string[] = ['companyName', 'contactName', 'contactTitle', 'country'];
   length = 90;
@@ -43,24 +45,22 @@ export class CustomerslistComponent implements OnInit {
     if (!source) {
       return;
     }
-    this.dataSource = new MatTableDataSource<T>(source);
+    this.dataSource = new MatTableDataSource<CustomerModel>(source);
   }
 
   // tslint:disable-next-line: typedef
   search(event: any) {
     const length = `${event && event.pageIndex ? event.pageIndex : 0}`;
-    let api  = `query/customers?skip=${length}&take=${event && event.pageSize ? event.pageSize : 10}`;
+    let api = `query/customers?skip=${length}&take=${event && event.pageSize ? event.pageSize : 10}`;
     if (!!event.target.value) {
       api = `query/customers?${this.selected}=${event.target.value}`;
     }
     this.backenApi.get(api).subscribe((res: any) => {
-      if (!res) {
-        return;
-      }
-      this.length = res.total === 0 ? 90 : res.total;
-      this.setDataSource(res.results);
-    });
+          if (!res) {
+            return;
+          }
+          this.length = res.total === 0 ? 90 : res.total;
+          this.setDataSource(res.results);
+        });
   }
 }
-
-

@@ -1,1 +1,68 @@
-<p>order works!</p>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="customerId">
+      <mat-header-cell *matHeaderCellDef>Customer ID </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a routerLink="/customers/{{element.customerId}}">
+          {{element?.customerId}}
+        </a>
+      </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="employeeId">
+      <mat-header-cell *matHeaderCellDef> Employee ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.employeeId}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="orderDate">
+      <mat-header-cell *matHeaderCellDef> Order Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.orderDate}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="requiredDate">
+      <mat-header-cell *matHeaderCellDef> Required Date</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element?.requiredDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="shippedDate">
+        <mat-header-cell *matHeaderCellDef> Shipped Date</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shippedDate}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipVia">
+        <mat-header-cell *matHeaderCellDef> Ship Via</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipVia}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="freight">
+        <mat-header-cell *matHeaderCellDef> Freight</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.freight}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipName">
+        <mat-header-cell *matHeaderCellDef> Ship Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipAddress">
+        <mat-header-cell *matHeaderCellDef> Ship Address</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipAddress}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipCity">
+        <mat-header-cell *matHeaderCellDef> Ship City</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipCity}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipPostalCode">
+        <mat-header-cell *matHeaderCellDef> Ship Postal Code</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipPostalCode}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shipCountry">
+        <mat-header-cell *matHeaderCellDef> Ship Country</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element?.shipCountry}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  
+  
+  </mat-table>
+
+  <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
+  (page)="getOrders($event)">
+</mat-paginator>
