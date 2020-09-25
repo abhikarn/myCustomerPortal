@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col">
+    Search
+  </div>
+  <div class="col">
+    <mat-form-field appearance="fill">
+      <mat-label>Select an option</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option>None</mat-option>
+        <mat-option value="companyName">Company Name</mat-option>
+        <mat-option value="contactTitle">Contact Title</mat-option>
+        <mat-option value="country">Country</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Search Field</mat-label>
+    <select matNativeControl required>
+      <option value="companyName">Company Name</option>
+      <option value="contactTitle">Contact Title</option>
+      <option value="country">Country</option>
+    </select>
+  </mat-form-field> -->
+  </div>
+
+  <div class="col">
+    <input type="search" maxlength="250"  placeholder="search" id="txtSearch" class="searhcInput" (change) = "search($event)" />
+  </div>
+</div>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="companyName">
+    <mat-header-cell *matHeaderCellDef>Company Name </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <a routerLink="/customers/{{element.id}}">
+        {{element?.companyName}}
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="contactName">
+    <mat-header-cell *matHeaderCellDef> Contact Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element?.contactName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="contactTitle">
+    <mat-header-cell *matHeaderCellDef> Contact Title </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element?.contactTitle}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="country">
+    <mat-header-cell *matHeaderCellDef> Country</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element?.country}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+
+</mat-table>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
+  (page)="getCustomerData($event)">
+</mat-paginator>
